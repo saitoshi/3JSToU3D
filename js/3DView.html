@@ -208,6 +208,7 @@
     }
   </style>
   <script src="OBJExporter.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
   <script>
     class dgac {
       constructor(top) {
@@ -12481,6 +12482,10 @@
       init();
       datum = result.datum;
       readResult();
+
+
+
+
     }
     function init() {
       const renderer = new THREE.WebGLRenderer({
@@ -12787,6 +12792,7 @@
           depObj3.add(textMeshY);
           depObj3.add(depmesh);
           scene.add(depObj3);
+
         }
         depObj3.position.y = -value;//visibleState['深度確認3'];
         depObj3.visible = depObj3.position.y ? true : false;
@@ -12816,6 +12822,8 @@
       var mesh = new THREE.Mesh(geometry, material);
       mesh.frustumCulled = false;
       return mesh;
+
+      
     }
     function makeModelCompus() {
       var Msh_Compus;
@@ -12847,6 +12855,12 @@
       Msh_Compus.scale.set(10.5, 10.5, 10.5);
       return Msh_Compus;
     }
+
+         // Instantiate an exporter
+         const exporter = new OBJExporter();
+      // Parse the input and generate the OBJ outpu
+      const data = exporter.parse( scene );
+      downloadFile( data );
 
   </script>
   <script id="vs" type="x-shader/x-vertex">
