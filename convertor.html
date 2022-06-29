@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja" style="width:100%;height:100%;margin:0;border:0;padding:0;">
+
+<head>
+    <meta charset="UTF-8" />
+</head>
+<script src="js/OBJExporter.js"></script>
+<script>
+    function convertFile() {
+        document.getElementById('buttonid').addEventListener('click', openDialog);
+        function openDialog() {
+            document.getElementById('field').click();
+        }
+        document.getElementById('field').addEventListener('convert', download);
+        function download() {
+            const exporter = new GLTFExporter();
+            exporter.parse(
+                scene,
+                function (result) {
+                    saveArrayBuffer(result, 'scene.glb');
+                },
+                { binary: true }
+            );
+        }
+
+        function saveArrayBuffer(buffer, filename) {
+            save(new Blob([buffer], { type: 'application/octet-stream' }), filename);
+        }
+
+        const link = document.createElement('a');
+        link.style.display = 'none';
+        document.body.appendChild(link);
+    }
+</script>
+
+<body onload="convertFile()">
+    <form id='formid' action="form.php" method="POST" enctype="multipart/form-data">
+        <input id='field' type='file' name='filename' hidden />
+        <input id='buttonid' type='button' value='Select' />
+        <input type='submit' value='Download' />
+    </form>
+</body>
