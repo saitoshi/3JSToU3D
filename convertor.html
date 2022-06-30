@@ -258,15 +258,17 @@
         }
 
     };
-</script>
-<script>
     function convertFile() {
+        const objExporter = new THREE.OBJExporter();
+
         document.getElementById('buttonid').addEventListener('click', openDialog);
         function openDialog() {
             document.getElementById('field').click();
         }
         document.getElementById('field').addEventListener('convert', download);
         function download() {
+            const objData = objExporter.parse(scene);
+            downloadFile(objData);
             const exporter = new GLTFExporter();
             exporter.parse(
                 scene,
